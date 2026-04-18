@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>המראה המאירה</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Heebo', Arial, sans-serif;
+      background: #faf8f5;
+      color: #2c2c2c;
+      direction: rtl;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      height: 85vh;
+      min-height: 560px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
+    }
+    .hero-text {
+      position: relative;
+      z-index: 2;
+      padding: 48px 56px;
+      color: white;
+    }
+    .hero-text h1 {
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1px;
+    }
+    .hero-text h1 span {
+      color: #f5c842;
+    }
+    .hero-text p {
+      font-size: 22px;
+      font-weight: 300;
+      margin-top: 14px;
+      opacity: 0.92;
+      max-width: 520px;
+    }
+    .hero-badges {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: white;
+      padding: 7px 18px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 500;
+      backdrop-filter: blur(6px);
+    }
+
+    /* ─── SECTION WRAPPER ─── */
+    .section {
+      padding: 72px 56px;
+    }
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #b8922a;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      font-size: 18px;
+      color: #666;
+      font-weight: 300;
+      margin-bottom: 40px;
+      max-width: 560px;
+    }
+
+    /* ─── TWO-COL FEATURE ─── */
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .feature-row.reverse { direction: ltr; }
+    .feature-row.reverse .feature-text { direction: rtl; }
+    .feature-img {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.13);
+    }
+    .feature-img img {
+      width: 100%;
+      height: 440px;
+      object-fit: cover;
+      display: block;
+    }
+    .feature-text h2 {
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.25;
+    }
+    .feature-text p {
+      font-size: 17px;
+      line-height: 1.75;
+      color: #444;
+      margin-bottom: 14px;
+    }
+    .highlight {
+      background: #fef9e7;
+      border-right: 4px solid #f5c842;
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+      margin-top: 18px;
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      border: none;
+      border-top: 1px solid #e8e2d6;
+      margin: 0 56px;
+    }
+
+    /* ─── COLOR SECTION ─── */
+    .color-section {
+      background: #1a1a1a;
+      color: white;
+      padding: 72px 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .color-section .section-label { color: #f5c842; }
+    .color-section .section-title { color: white; }
+    .color-section .section-sub { color: rgba(255,255,255,0.65); margin-bottom: 0; }
+    .color-img {
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .color-img img {
+      width: 100%;
+      display: block;
+    }
+
+    /* ─── DIMMER SECTION ─── */
+    .dimmer-section {
+      padding: 72px 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+      background: white;
+    }
+    .dimmer-img {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 56px rgba(0,0,0,0.1);
+    }
+    .dimmer-img img {
+      width: 100%;
+      display: block;
+    }
+
+    /* ─── ADVANTAGES GRID ─── */
+    .adv-section {
+      background: #faf8f5;
+      padding: 72px 56px;
+    }
+    .adv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .adv-card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      border: 1px solid #f0ebe2;
+    }
+    .adv-icon {
+      font-size: 32px;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .adv-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .adv-card p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.65;
+    }
+
+    /* ─── COMPARE TABLE ─── */
+    .compare-section {
+      background: white;
+      padding: 72px 56px;
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 40px;
+      font-size: 16px;
+    }
+    .compare-table th {
+      padding: 16px 20px;
+      text-align: right;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .compare-table th:first-child { color: #888; }
+    .compare-table th.us {
+      background: #1a1a1a;
+      color: #f5c842;
+      border-radius: 12px 12px 0 0;
+      font-size: 17px;
+    }
+    .compare-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid #f0ebe2;
+      vertical-align: top;
+    }
+    .compare-table td.us {
+      background: #fefcf4;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .check { color: #27ae60; font-weight: 700; }
+    .cross { color: #bbb; }
+
+    /* ─── SPECS ─── */
+    .specs-section {
+      background: #1a1a1a;
+      color: white;
+      padding: 72px 56px;
+    }
+    .specs-section .section-label { color: #f5c842; }
+    .specs-section .section-title { color: white; }
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 40px;
+      background: #333;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .spec-item {
+      background: #252525;
+      padding: 28px 24px;
+    }
+    .spec-label {
+      font-size: 12px;
+      color: #999;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .spec-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: white;
+    }
+    .spec-value span {
+      font-size: 14px;
+      font-weight: 400;
+      color: #aaa;
+      margin-right: 4px;
+    }
+
+    /* ─── FOOTER CTA ─── */
+    .cta {
+      background: #f5c842;
+      padding: 64px 56px;
+      text-align: center;
+    }
+    .cta h2 {
+      font-size: 40px;
+      font-weight: 900;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+    }
+    .cta p {
+      font-size: 20px;
+      color: #4a3a00;
+      font-weight: 400;
+    }
+    .cta-tag {
+      display: inline-block;
+      margin-top: 28px;
+      background: #1a1a1a;
+      color: #f5c842;
+      padding: 14px 40px;
+      border-radius: 100px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .hero-text { padding: 32px 24px; }
+      .hero-text h1 { font-size: 38px; }
+      .section, .color-section, .dimmer-section, .adv-section,
+      .compare-section, .specs-section, .cta { padding: 48px 24px; }
+      .divider { margin: 0 24px; }
+      .feature-row, .color-section, .dimmer-section { grid-template-columns: 1fr; }
+      .feature-row.reverse { direction: rtl; }
+      .adv-grid, .specs-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <img src="images/Gemini_Generated_Image_qebujbqebujbqebu.png" alt="המראה המאירה על הקיר">
+  <div class="hero-overlay"></div>
+  <div class="hero-text">
+    <h1>המראה <span>המאירה</span></h1>
+    <p>מסגרת עץ אורן טבעי · תאורת LED מקצועית · 77×77 ס"מ</p>
+    <div class="hero-badges">
+      <span class="badge">עץ אורן מלא</span>
+      <span class="badge">3 צבעי אור</span>
+      <span class="badge">USB — ללא שקע</span>
+      <span class="badge">12 חודשי אחריות</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRODUCT INTRO ═══ -->
+<section class="section">
+  <div class="feature-row">
+    <div class="feature-img">
+      <img src="images/Gemini_Generated_Image_8m3nv08m3nv08m3n.png" alt="מראה על שולחן איפור">
+    </div>
+    <div class="feature-text">
+      <div class="section-label">המוצר</div>
+      <h2 class="section-title">לא עוד מראה רגילה.<br>זו חוויה.</h2>
+      <p>
+        מסגרת מעץ אורן מלא עם גוון טבעי וחם — עיצוב שונה מכל מראה אחרת בשוק.
+        לא פלסטיק. לא מתכת קרה. עץ אמיתי שמשתלב בכל חדר.
+      </p>
+      <p>
+        בגודל <strong>77×77 ס"מ</strong> — גדול מספיק לראות את הפנים, הצוואר,
+        הכתפיים והחזה יחד. הכנת הבוקר השלמה במראה אחת.
+      </p>
+      <div class="highlight">
+        התקנה של <strong>2 ברגים בלבד</strong> — מגיע עם כל הדרוש.
+        עשר דקות, ואתה מוכן.
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ COLOR TEMPS ═══ -->
+<section class="color-section">
+  <div>
+    <div class="section-label">תאורה</div>
+    <h2 class="section-title" style="font-size:34px">שלושה צבעי אור.<br>כל מצב — אור אחר.</h2>
+    <p class="section-sub" style="margin-bottom:28px">
+      לא מתג פשוט. מערכת תאורה שלמה שמתאימה לכל שעה ביום.
+    </p>
+    <p style="color:rgba(255,255,255,0.8); font-size:16px; line-height:1.75;">
+      <strong style="color:#f5c842">אור חם (3500K)</strong> — ערב, רגיעה, תאורת אווירה<br>
+      <strong style="color:#f5c842">אור ביניים (4000K)</strong> — נייטרלי, מדויק לאיפור יומי<br>
+      <strong style="color:#f5c842">אור קר (6500K)</strong> — מקצועי, כמו בסטודיו צילום
+    </p>
+    <p style="color:rgba(255,255,255,0.6); font-size:15px; margin-top:20px; line-height:1.7;">
+      ללא הבהוב · ללא קרינת חום · ללא כתמים<br>
+      אור רך שמגן על העיניים ומשקף צבעים אמיתיים.
+    </p>
+  </div>
+  <div class="color-img">
+    <img src="images/Gemini_Generated_Image_xj4rcvxj4rcvxj4r.png" alt="שלט דימר">
+  </div>
+</section>
+
+<!-- ═══ DIMMER ═══ -->
+<section class="dimmer-section">
+<div class="feature-text">
+    <div class="section-label">שליטה</div>
+    <h2>דימר אלקטרוני<br>+ פונקציית זיכרון</h2>
+    <p>
+      9 רמות עמעום — כיוון עוצמת האור בדיוק לצורך שלך.
+      לא "חזק או כבוי". כל נקודת הגדרה בין חשוך לבהיר.
+    </p>
+    <p>
+      <strong>פונקציית זיכרון:</strong> המראה זוכרת את ההגדרה האחרונה שלך.
+      כל פעם שתדליקי — היא תחזור בדיוק לאותה עוצמה וצבע.
+      לא צריך לכוון מחדש כל בוקר.
+    </p>
+    <div class="highlight">
+      <strong>USB בלבד — ללא שקע קיר.</strong><br>
+      תחברי למחשב נייד, סוללת גיבוי, או ראש מטען סלולרי.
+      חיסכון באנרגיה, תוחלת חיים ארוכה. DC 12V — בטוח לשימוש.
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ ADVANTAGES ═══ -->
+<section class="adv-section">
+  <div class="section-label">יתרונות</div>
+  <h2 class="section-title">מה מקבלים</h2>
+  <div class="adv-grid">
+    <div class="adv-card">
+      <span class="adv-icon">🌲</span>
+      <h3>מסגרת עץ אורן מלא</h3>
+      <p>עיצוב חם ואורגני — סקנדינבי, בוהמי, מינימליסטי. מראה שמעצבת את החדר.</p>
+    </div>
+    <div class="adv-card">
+      <span class="adv-icon">📐</span>
+      <h3>77×77 ס"מ</h3>
+      <p>גדול מספיק לחצי גוף עליון. לא רק פנים — פנים, צוואר, כתפיים, חזה.</p>
+    </div>
+    <div class="adv-card">
+      <span class="adv-icon">💡</span>
+      <h3>LED 3500k–6500k</h3>
+      <p>שלושה צבעי אור מדויקים. ללא הבהוב, ללא חום, ללא כתמים. הגנה על העיניים.</p>
+    </div>
+    <div class="adv-card">
+      <span class="adv-icon">🎛️</span>
+      <h3>דימר + זיכרון</h3>
+      <p>9 רמות עמעום. פונקציית זיכרון שחוזרת להגדרה האחרונה בכל הפעלה.</p>
+    </div>
+    <div class="adv-card">
+      <span class="adv-icon">🔌</span>
+      <h3>USB — ללא שקע</h3>
+      <p>מחשב, פאוור בנק, מטען סלולרי. חופש מוחלט מהשקע. DC 12V, בטוח.</p>
+    </div>
+    <div class="adv-card">
+      <span class="adv-icon">✅</span>
+      <h3>12 חודשי אחריות</h3>
+      <p>על המראה כולה — לא רק על החשמל. כי אנחנו בטוחים במוצר שלנו.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMPARE ═══ -->
+<section class="compare-section">
+  <div class="section-label">השוואה</div>
+  <h2 class="section-title">מראות הוליווד רגילות לעומת המראה המאירה</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th class="us">המראה המאירה</th>
+        <th>מראות הוליווד אחרות</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>מסגרת</strong></td>
+        <td class="us"><span class="check">✓</span> עץ אורן טבעי — חמה, ייחודית</td>
+        <td><span class="cross">—</span> פלסטיק לבן / מתכת קרה</td>
+      </tr>
+      <tr>
+        <td><strong>גודל</strong></td>
+        <td class="us"><span class="check">✓</span> 77×77 ס"מ — חצי גוף עליון</td>
+        <td><span class="cross">—</span> 50×60 עד 60×80 ס"מ בלבד</td>
+      </tr>
+      <tr>
+        <td><strong>תאורה</strong></td>
+        <td class="us"><span class="check">✓</span> 3500–6500K + דימר אלקטרוני</td>
+        <td><span class="cross">—</span> מתג פשוט, 2–3 מצבים</td>
+      </tr>
+      <tr>
+        <td><strong>זיכרון</strong></td>
+        <td class="us"><span class="check">✓</span> זוכר הגדרה אחרונה</td>
+        <td><span class="cross">—</span> לרוב אין</td>
+      </tr>
+      <tr>
+        <td><strong>חיבור חשמל</strong></td>
+        <td class="us"><span class="check">✓</span> USB — מחשב / פאוור בנק / מטען</td>
+        <td><span class="cross">—</span> שקע קיר בלבד</td>
+      </tr>
+      <tr>
+        <td><strong>התקנה</strong></td>
+        <td class="us"><span class="check">✓</span> 2 ברגים בלבד — על הקיר</td>
+        <td><span class="cross">—</span> ניידת / עמדה / סבוך</td>
+      </tr>
+      <tr>
+        <td><strong>אחריות</strong></td>
+        <td class="us"><span class="check">✓</span> 12 חודשים על המראה כולה</td>
+        <td><span class="cross">—</span> על חשמל בלבד / פחות</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══ SPECS ═══ -->
+<section class="specs-section">
+  <div class="section-label">מפרט</div>
+  <h2 class="section-title">פרטים טכניים</h2>
+  <div class="specs-grid">
+    <div class="spec-item">
+      <div class="spec-label">מידות</div>
+      <div class="spec-value">77×77 <span>ס"מ</span></div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">מסגרת</div>
+      <div class="spec-value">עץ אורן מלא</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">התקנה</div>
+      <div class="spec-value">2 <span>ברגים, קיר</span></div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">טווח צבע אור</div>
+      <div class="spec-value">3500–6500 <span>K</span></div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">רמות עמעום</div>
+      <div class="spec-value">9 <span>רמות + זיכרון</span></div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">חיבור</div>
+      <div class="spec-value">USB <span>DC 12V</span></div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">אחריות</div>
+      <div class="spec-value">12 <span>חודשים</span></div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">הגנת עיניים</div>
+      <div class="spec-value">ללא הבהוב</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">מתאם</div>
+      <div class="spec-value">מחשב / פאוור בנק / מטען</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta">
+  <h2>המראה המאירה</h2>
+  <p>מסגרת עץ אורן · תאורה מקצועית · גודל שמספר את כל הסיפור</p>
+  <a href="https://wa.me/972544828438" class="cta-tag" style="text-decoration:none; display:inline-flex; align-items:center; gap:10px; margin-top:28px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#f5c842">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    לרכישה
+  </a>
+</section>
+
+</body>
+</html>
